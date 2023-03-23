@@ -14,6 +14,7 @@
 - リモートリポジトリへプッシュする →　git push origin HEAD
 - プルリクエスト実行
 - GitHub上からプルリクエストに対するマージ、ブランチ削除
+- mainに移動する　→　Git checkout origin main 
 - GitHubの内容をローカルに取り込み　→　git pull origin main
 - ローカルリポジトリのブランチを削除する → git branch -d ブランチ名
 
