@@ -13,11 +13,9 @@
 ![RDS](https://user-images.githubusercontent.com/128438140/228058654-bf8c980f-b7f8-4a44-8520-d68b8602f7fa.jpeg)
 
 #### EC2接続確認
-![EC2接続確認](https://user-images.githubusercontent.com/128438140/228058685-be596bbd-9669-4c92-95ce-074058912453.jpeg)
-
+![EC2接続確認](https://user-images.githubusercontent.com/128438140/228069757-8f23afd5-760c-48c6-be80-e3904ca72f7b.jpeg)
 #### RDS接続確認
-![RDS接続確認](https://user-images.githubusercontent.com/128438140/228058704-df18950c-afb7-4304-908e-8a9a6dd47e27.jpeg)
-
+![RDS接続確認](https://user-images.githubusercontent.com/128438140/228069743-6b8c0e9a-bc14-400c-944f-3a48190ee8f4.jpeg)
 ### 講座について
 課題を進める上で、分からない単語が出てきたら、検索して、まとめるようにした。
 
