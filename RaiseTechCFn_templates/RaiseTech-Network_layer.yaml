@@ -1,0 +1,149 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: RaiseTech-Network_layer
+
+Resources: 
+  RaiseTechVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: RaiseTechVPC
+
+  PublicSubnetRaiseTech1a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Select
+        - 0
+        - Fn::GetAZs: !Ref AWS::Region
+      VpcId: !Ref RaiseTechVPC
+      CidrBlock: 10.0.10.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: PublicSubnetRaiseTech1a
+
+  PrivateSubnetRaiseTech1a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Select
+        - 0
+        - Fn::GetAZs: !Ref AWS::Region
+      VpcId: !Ref RaiseTechVPC
+      CidrBlock: 10.0.20.0/24
+      Tags:
+        - Key: Name
+          Value: PrivateSubnetRaiseTech1a
+
+  PublicSubnetRaiseTech1c:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Select
+        - 1
+        - Fn::GetAZs: !Ref AWS::Region
+      VpcId: !Ref RaiseTechVPC
+      CidrBlock: 10.0.2.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: PublicSubnetRaiseTech1c
+
+  PrivateSubnetRaiseTech1c:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Select
+        - 1
+        - Fn::GetAZs: !Ref AWS::Region
+      VpcId: !Ref RaiseTechVPC
+      CidrBlock: 10.0.21.0/24
+      Tags:
+        - Key: Name
+          Value: PrivateSubnetRaiseTech1c
+
+  RaiseTechVPCIgw:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: RaiseTechVPCIgw
+
+  # InternetGatewayとVPCの接続
+  InternetGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref RaiseTechVPCIgw
+      VpcId: !Ref RaiseTechVPC
+
+  PublicRoutetable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref RaiseTechVPC
+      Tags:
+        - Key: Name
+          Value: PublicRoutetable
+
+  PrivateRoutetable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref RaiseTechVPC
+      Tags:
+        - Key: Name
+          Value: PrivateRoutetable
+
+  RouteTableAssocNamePub1a:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnetRaiseTech1a
+      RouteTableId: !Ref PublicRoutetable
+
+  RouteTableAssocNamePri1a:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PrivateSubnetRaiseTech1a
+      RouteTableId: !Ref PrivateRoutetable
+
+  RouteTableAssocNamepub1c:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnetRaiseTech1c
+      RouteTableId: !Ref PublicRoutetable 
+
+  RouteTableAssocNamePri1c:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PrivateSubnetRaiseTech1c
+      RouteTableId: !Ref PrivateRoutetable
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      RouteTableId: !Ref PublicRoutetable
+      GatewayId: !Ref RaiseTechVPCIgw
+
+Outputs:
+  RaiseTechVPC:
+    Value: !Ref RaiseTechVPC
+    Export:
+      Name: NetworkLayer-RaiseTechVPC
+
+  PublicSubnetRaiseTech1a:
+    Value: !Ref PublicSubnetRaiseTech1a
+    Export:
+      Name: NetworkLayer-PublicSubnetRaiseTech1a
+
+  PublicSubnetRaiseTech1c:
+    Value: !Ref PublicSubnetRaiseTech1c
+    Export:
+      Name: NetworkLayer-PublicSubnetRaiseTech1c
+
+  PrivateSubnetRaiseTech1a:
+    Value: !Ref PrivateSubnetRaiseTech1a
+    Export:
+      Name: NetworkLayer-PrivateSubnetRaiseTech1a
+
+  PrivateSubnetRaiseTech1c:
+    Value: !Ref PrivateSubnetRaiseTech1c
+    Export:
+      Name: NetworkLayer-PrivateSubnetRaiseTech1c
