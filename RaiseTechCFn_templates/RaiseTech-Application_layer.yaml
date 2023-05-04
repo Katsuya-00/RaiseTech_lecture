@@ -123,3 +123,4 @@ Resources:
       AccessControl: Private
       VersioningConfiguration:
         Status: Enabled
+        
