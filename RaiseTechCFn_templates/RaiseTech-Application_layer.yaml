@@ -1,0 +1,125 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: RaiseTech-Application_layer
+
+Parameters:
+  InstanceType:
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - m1.small
+      - m1.large
+  DBInstanceIdentifier:
+    Type: String
+  DBInstanceType:
+    Type: String
+    Default: db.t2.micro
+    AllowedValues:
+      - db.t2.micro
+      - db.t2.small
+      - db.t2.medium
+  DBPassword:
+    Type: String
+    NoEcho: true
+  DBSubnetGroupDescription:
+    Type: String
+  S3BucketName:
+    Type: String
+
+Resources:
+  CFnKeyPair:
+    Type: 'AWS::EC2::KeyPair'
+    Properties:
+      KeyName: CFnKeyPair
+
+  EC2RaiseTech1a:
+    Type: AWS::EC2::Instance
+    Properties:
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: "true"
+          SubnetId: !ImportValue NetworkLayer-PublicSubnetRaiseTech1a
+          GroupSet:
+            - !ImportValue SecurityLayer-SecurityGroupEC2RaiseTech
+          DeviceIndex: 0
+      ImageId: ami-0df2ca8a354185e1e
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref CFnKeyPair
+      Tags:
+        - Key: Name
+          Value: EC2RaiseTech1a     
+  RDSRaiseTech1a:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage : 20
+      DBInstanceClass: !Ref DBInstanceType
+      Port: 3306
+      StorageType: gp2
+      BackupRetentionPeriod: 7
+      MasterUsername: admin
+      MasterUserPassword: !Ref DBPassword
+      DBInstanceIdentifier: !Ref DBInstanceIdentifier
+      DBName: RaiseTechRDS
+      Engine: mysql
+      EngineVersion: 8.0.32
+      DBSubnetGroupName: !Ref RaiseTechRDSSubnetgroup
+      MultiAZ: false
+      VPCSecurityGroups:
+        - !ImportValue SecurityLayer-SecurityGroupRDSRaiseTech
+
+  RaiseTechRDSSubnetgroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: !Ref DBSubnetGroupDescription
+      DBSubnetGroupName: RaiseTechRDSSubnetgroup
+      SubnetIds:
+        - !ImportValue NetworkLayer-PrivateSubnetRaiseTech1a
+        - !ImportValue NetworkLayer-PrivateSubnetRaiseTech1c
+
+  RaiseTechALB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      IpAddressType: ipv4
+      Name: RaiseTechALB
+      Scheme: internet-facing
+      SecurityGroups:
+        - !ImportValue SecurityLayer-SecurityGroupALBRaiseTech
+      Subnets:
+        - !ImportValue NetworkLayer-PublicSubnetRaiseTech1a
+        - !ImportValue NetworkLayer-PublicSubnetRaiseTech1c
+      Tags:
+        - Key: Name
+          Value: RaiseTechALB
+
+  # ALBのターゲットグループの指定
+  ALBTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: ALBTargetGroup
+      Port: 80
+      Protocol: HTTP
+      Targets:
+        - Id:
+            Ref: EC2RaiseTech1a  
+          Port: 80
+      VpcId: !ImportValue NetworkLayer-RaiseTechVPC
+
+  # ALBのリスナーの指定
+  ALBListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn:
+            !Ref ALBTargetGroup
+      LoadBalancerArn:
+        !Ref RaiseTechALB
+      Port: 80
+      Protocol: HTTP        
+  # S3の設定    
+  RaiseTEchS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref S3BucketName
+      AccessControl: Private
+      VersioningConfiguration:
+        Status: Enabled
