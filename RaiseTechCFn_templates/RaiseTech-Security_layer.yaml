@@ -1,6 +1,12 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: RaiseTech-Security_layer
 
+Parameters:
+  AllowedIPAddress:
+    Type: String
+    Description: The allowed IP address to access the instance (e.g.)221.246.36.241/32
+    Default: 0.0.0.0/0 # IPアドレスが変更になった際はセキュリティグループの設定値を変更する必要性が有る
+
 Resources:
   SecurityGroupEC2RaiseTech:
     Type: AWS::EC2::SecurityGroup
@@ -15,11 +21,11 @@ Resources:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
-          CidrIp: 0.0.0.0/0
+          CidrIp: !Ref AllowedIPAddress
         - IpProtocol: tcp
           FromPort: 443
           ToPort: 443
-          CidrIp: 0.0.0.0/0          
+          CidrIp: 0.0.0.0/0
         - IpProtocol: tcp
           FromPort: 3000
           ToPort: 3000
@@ -28,6 +34,7 @@ Resources:
         - Key: Name
           Value: SecurityGroupEC2RaiseTech
       VpcId: !ImportValue NetworkLayer-RaiseTechVPC
+
   SecurityGroupRDSRaiseTech:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -42,6 +49,7 @@ Resources:
         - Key: Name
           Value: SecurityGroupRDSRaiseTech
       VpcId: !ImportValue NetworkLayer-RaiseTechVPC
+
   SecurityGroupALBRaiseTech:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -55,7 +63,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 443
           ToPort: 443
-          CidrIp: 0.0.0.0/0          
+          CidrIp: 0.0.0.0/0
       Tags:
         - Key: Name
           Value: SecurityGroupALBRaiseTech
@@ -76,4 +84,3 @@ Outputs:
     Value: !Ref SecurityGroupALBRaiseTech
     Export:
       Name: SecurityLayer-SecurityGroupALBRaiseTech
-      

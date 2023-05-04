@@ -7,10 +7,12 @@ Parameters:
     Default: t2.micro
     AllowedValues:
       - t2.micro
-      - m1.small
-      - m1.large
+      - t2.small
+      - t2.medium
+
   DBInstanceIdentifier:
     Type: String
+
   DBInstanceType:
     Type: String
     Default: db.t2.micro
@@ -18,11 +20,14 @@ Parameters:
       - db.t2.micro
       - db.t2.small
       - db.t2.medium
+
   DBPassword:
     Type: String
     NoEcho: true
+
   DBSubnetGroupDescription:
     Type: String
+
   S3BucketName:
     Type: String
 
@@ -46,7 +51,8 @@ Resources:
       KeyName: !Ref CFnKeyPair
       Tags:
         - Key: Name
-          Value: EC2RaiseTech1a     
+          Value: EC2RaiseTech1a
+
   RDSRaiseTech1a:
     Type: AWS::RDS::DBInstance
     Properties:
@@ -114,7 +120,8 @@ Resources:
       LoadBalancerArn:
         !Ref RaiseTechALB
       Port: 80
-      Protocol: HTTP        
+      Protocol: HTTP
+      
   # S3の設定    
   RaiseTEchS3Bucket:
     Type: AWS::S3::Bucket
@@ -123,4 +130,3 @@ Resources:
       AccessControl: Private
       VersioningConfiguration:
         Status: Enabled
-        
