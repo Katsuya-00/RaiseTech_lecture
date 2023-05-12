@@ -2,7 +2,7 @@
 ## まずは組み込みサーバーのみで正しく動作する構成を作りましょう。
 
 ## EC2環境構築
-### ①[EC2.md](manual/EC2.md)の流れで進めていく。
+### ①[EC2.md](../manual/EC2.md)の流れで進めていく。
 
 ### ②rails server -b 0.0.0.0　コマンド
 
@@ -11,7 +11,7 @@
 ![組み込みサーバー動作確認](https://user-images.githubusercontent.com/128438140/232202728-96dec04a-8a43-46f2-8fe7-2657aa12e3e6.jpeg)
 
 
-### ③[unicorn,Nginx.md](manual/unicorn,Nginx.md)の流れで進めていく。
+### ③[unicorn,Nginx.md](../manual/unicorn,Nginx.md)の流れで進めていく。
 
 IPアドレスをURLへ貼り付け、ブラウザにて接続確認しました
 
@@ -27,7 +27,7 @@ ELB作成後、DNS名をコピーしてURLへ貼り付け、接続確認しま�
 
 ### ⑤S3を追加
 
-[S3.md](manual/S3.md)の流れで設定を進める。
+[S3.md](../manual/S3.md)の流れで設定を進める。
 
 ブラウザからサンプルアプリケーションへ接続
 
