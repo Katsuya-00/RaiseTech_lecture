@@ -36,7 +36,7 @@ NetworkLayer , SecurityLayer , Application の３つのテンプレートに分�
 
 [VPC](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpc.html)、[Subnet](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html)、[InternetGateway](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-internetgateway.html)、[Routetable](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-routetable.html)を作成していく。  
 
-[NetworkLayerテンプレート](RaiseTechCFn_templates/RaiseTech-Network_layer.yaml)  
+[NetworkLayerテンプレート](../RaiseTechCFn_templates/RaiseTech-Network_layer.yaml)  
 ここでの警告は2つ有りました。  
 １．倫理IDでは、記号が使えないということ  
 ２．AvailabilityZoneを直接書くとテンプレートの汎用性が悪くなるのでNG  
@@ -84,7 +84,7 @@ OutPuts:
 各種セキュリティグループを作成します。  
 今回は、[EC2](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html),[RDS](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-rds-security-group.html),[ALB](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html)のセキュリティグループを設定しました。
 
-[SecurityLayerテンプレート](RaiseTechCFn_templates/RaiseTech-Security_layer.yaml)  
+[SecurityLayerテンプレート](../RaiseTechCFn_templates/RaiseTech-Security_layer.yaml)  
 
 同じテンプレート内でリソースの値を参照する際は、組み込み関数Refを使用しますが、別テンプレートでエクスポートされた値を参照する場合は組み込み関数ImportValueを使用します。
 
@@ -108,7 +108,7 @@ SecurityGroupRDSRaiseTech:
 #### ●ApplicationLayer
 [EC2](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html),[RDS](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/AWS_RDS.html),[ALB](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/AWS_ElasticLoadBalancingV2.html),[S3](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/AWS_S3.html)を作成します。
 
-[ApplicationLayerテンプレート](RaiseTechCFn_templates/RaiseTech-Application_layer.yaml)  
+[ApplicationLayerテンプレート](../RaiseTechCFn_templates/RaiseTech-Application_layer.yaml)  
 
 Parametersを利用して、スタック作成時に設定できるようにします。  
 ⇛最初はParametersを記載する必要性が理解出来ず。。
