@@ -1,16 +1,18 @@
 # AWS（RaiseTech）での学習記録
 - [学習記録アウトプット一覧](lecture)
-# AWS上に環境構築
-データベースの基本的なCRUD処理が出来るサンプルアプリケーションのデプロイを実行しました。　　
+# ①AWS上に環境構築
+- データベースの基本的なCRUD処理が出来るサンプルアプリケーションのデプロイを実行しました。　　
+- ACMでSSL証明書を発行、Route53で独自ドメインを取得しALBのリスナールールを利用して接続をHTTPS化
 - [デプロイ手順書](lecture/lecture05_deproy.md)
 
-![サンプルアプリ１](https://github.com/Katsuya-00/RaiseTech_lecture/assets/128438140/c4cd22ac-e5d7-4e84-83d1-90853d66a2c6)
+![testcrud net](https://github.com/Katsuya-00/RaiseTech_lecture/assets/128438140/8a79c1c5-0010-42b7-84fb-25bd8a6b69d6)
 
-- ACMでSSL証明書を発行、Route53で独自ドメインを取得しALBのリスナールールを利用して接続をHTTPS化
+
 
 ## AWS構成図
 
-<img width="543" alt="スクリーンショット 2023-05-13 5 46 56" src="https://github.com/Katsuya-00/RaiseTech_lecture/assets/128438140/e59070cd-6c1b-4b79-89c6-399f0cdb4ab7">
+<img width="649" alt="スクリーンショット 2023-05-13 11 36 27" src="https://github.com/Katsuya-00/RaiseTech_lecture/assets/128438140/4eefdeaf-4ad9-454f-83be-7956916e2c65">
+
 
 ## 使用技術
 - AWS
@@ -26,3 +28,14 @@
 - MySQL 8.0
 - Nginx
 - Unicorn
+
+# ②CloudFormationでの環境構築
+CloudFormationでの環境構築を実行
+- [CloudFormation手順書](lecture/lecture10_CloudFormation.md)
+# AWS構成図
+
+<img width="631" alt="スクリーンショット 2023-05-13 10 37 25" src="https://github.com/Katsuya-00/RaiseTech_lecture/assets/128438140/1f6fd71c-cce4-45b1-bb0b-ab3ae2574df9">
+
+
+
+
