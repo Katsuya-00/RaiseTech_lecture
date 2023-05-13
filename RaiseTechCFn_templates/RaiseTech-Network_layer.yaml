@@ -43,7 +43,7 @@ Resources:
         - 1
         - Fn::GetAZs: !Ref AWS::Region
       VpcId: !Ref RaiseTechVPC
-      CidrBlock: 10.0.2.0/24
+      CidrBlock: 10.0.11.0/24
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
