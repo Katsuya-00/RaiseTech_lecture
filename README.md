@@ -34,7 +34,7 @@ CloudFormationでの環境構築を実行
 - [CloudFormation手順書](lecture/lecture10_CloudFormation.md)
 # AWS構成図
 
-<img width="631" alt="スクリーンショット 2023-05-13 10 37 25" src="https://github.com/Katsuya-00/RaiseTech_lecture/assets/128438140/1f6fd71c-cce4-45b1-bb0b-ab3ae2574df9">
+<img width="642" alt="スクリーンショット 2023-05-13 11 56 07" src="https://github.com/Katsuya-00/RaiseTech_lecture/assets/128438140/a50e6782-815d-4d9d-b02b-77db7f86c26d">
 
 
 
