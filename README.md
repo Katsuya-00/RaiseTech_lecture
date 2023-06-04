@@ -1,6 +1,6 @@
 # AWS上にサンプルアプリケーションの環境構築
 - [RaiseTechでの学習記録アウトプット一覧](lecture)
-# ①AWS上に環境構築
+# ①AWS上にRuby on Railsのアプリケーションデプロイ
 - データベースの基本的なCRUD処理が出来るサンプルアプリケーションのデプロイを実行しました。　　
 - ACMでSSL証明書を発行、Route53で独自ドメインを取得しALBのリスナールールを利用して接続をHTTPS化
 - [デプロイ手順書](lecture/lecture05_deproy.md)
