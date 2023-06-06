@@ -3,8 +3,8 @@
 # ①AWS上にRuby on Railsのアプリケーションをデプロイ
 - データベースの基本的なCRUD処理が出来るサンプルアプリケーションのデプロイを実行
 - Route53で独自ドメインを取得、ACMでSSL証明書を発行
-- ALBのリスナールールを利用してアプリケーションへの接続をHTTPS化
-- 画像の保存先をS3に設定
+- ROUTE53のトラフィックをALBに。リスナールールを利用して、ALBまでの接続をHTTPS化して通信を保護。
+- Railsのアクティブストレージを利用して、画像の保存先をS3に設定
 - [デプロイ手順書](lecture/lecture05_deproy.md)
 
 ![testcrud net](https://github.com/Katsuya-00/RaiseTech_lecture/assets/128438140/8a79c1c5-0010-42b7-84fb-25bd8a6b69d6)
